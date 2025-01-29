@@ -1,0 +1,30 @@
+// Using Stack
+// T.C : O(N)
+// S.C : O(N)
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+
+        for(auto &ch : s){
+            if(st.empty() || ch == '(' || ch == '{' || ch == '['){
+                st.push(ch);
+                continue;
+            }
+
+            if(ch == ')'){
+                if(st.top() == '(') st.pop();
+                else return false;
+            }
+            else if(ch == '}'){
+                if(st.top() == '{') st.pop();
+                else return false;
+            }
+            if(ch == ']'){
+                if(st.top() == '[') st.pop();
+                else return false;
+            }
+        }
+        return st.empty();
+    }
+};
