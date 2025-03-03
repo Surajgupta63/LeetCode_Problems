@@ -29,3 +29,37 @@ public:
         return ans;
     }
 };
+
+// Approach - 2 Monotonic Stack
+// T.C : O(n+m)
+// S.C : O(m)
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;
+        int n = nums1.size();
+        int m = nums2.size();
+
+        stack<int> st;
+        unordered_map<int, int> mp;
+
+        for(int i=m-1; i>=0; i--){
+            while(!st.empty() && nums2[i] > st.top()){
+                st.pop();
+            }
+            
+            if(!st.empty() && nums2[i] < st.top()){
+                mp[nums2[i]] = st.top();
+            }else{
+                mp[nums2[i]] = -1;
+            }
+            st.push(nums2[i]);
+        }
+
+        for(int num : nums1){
+            ans.push_back(mp[num]);
+        }
+
+        return ans;
+    }
+};
